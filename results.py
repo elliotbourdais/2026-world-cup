@@ -18,7 +18,15 @@ client = gspread.authorize(creds)
 # Fetch data
 url = "https://raw.githubusercontent.com/upbound-web/worldcup-live.json/master/2026/worldcup.json"
 data = requests.get(url).json()
-df = pd.DataFrame(data['matches']).fillna('')
+
+# Flatten nested fields
+df = pd.json_normalize(data['matches'])
+
+# Convert any remaining lists/dicts to strings
+for col in df.columns:
+    df[col] = df[col].apply(lambda x: json.dumps(x) if isinstance(x, (dict, list)) else x)
+
+df = df.fillna('')
 
 # Write to Google Sheets
 sheet = client.open(SHEET_NAME).worksheet(TAB_NAME)
