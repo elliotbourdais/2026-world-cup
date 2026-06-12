@@ -18,7 +18,7 @@ client = gspread.authorize(creds)
 # Fetch data
 url = "https://raw.githubusercontent.com/upbound-web/worldcup-live.json/master/2026/worldcup.json"
 data = requests.get(url).json()
-df = pd.DataFrame(data['matches'])
+df = pd.DataFrame(data['matches']).fillna('')
 
 # Write to Google Sheets
 sheet = client.open(SHEET_NAME).worksheet(TAB_NAME)
