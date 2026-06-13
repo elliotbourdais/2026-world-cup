@@ -27,6 +27,7 @@ for col in df.columns:
     df[col] = df[col].apply(lambda x: json.dumps(x) if isinstance(x, (dict, list)) else x)
 
 df = df.fillna('')
+df = df.sort_values(by=['date', 'time']).reset_index(drop=True)
 
 # Write to Google Sheets
 sheet = client.open(SHEET_NAME).worksheet(TAB_NAME)
