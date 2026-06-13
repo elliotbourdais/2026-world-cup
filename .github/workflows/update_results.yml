@@ -2,7 +2,7 @@ name: Update 2026 World Cup Results
 
 on:
   schedule:
-    - cron: '0 7 * * *'  # daily at 7am UTC (8am BST)
+    - cron: '0 * * * *'
   workflow_dispatch:
 
 jobs:
