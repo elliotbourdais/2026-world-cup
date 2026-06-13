@@ -28,6 +28,8 @@ for col in df.columns:
 
 df = df.fillna('')
 df = df.sort_values(by=['date', 'time']).reset_index(drop=True)
+df = df.replace('USA', 'United States')
+df = df.replace('Bosnia & Herzegovina', 'Bosnia and Herzegovina')
 
 # Write to Google Sheets
 sheet = client.open(SHEET_NAME).worksheet(TAB_NAME)
