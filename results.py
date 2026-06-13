@@ -24,7 +24,7 @@ df = pd.json_normalize(data['matches'])
 
 # Convert any remaining lists/dicts to strings
 for col in df.columns:
-    df[col] = df[col].apply(lambda x: json.dumps(x) if isinstance(x, (dict, list)) else x)
+    df[col] = df[col].apply(lambda x: json.dumps(x, ensure_ascii=False) if isinstance(x, (dict, list)) else x)
 
 df = df.fillna('')
 df = df.sort_values(by=['date', 'time']).reset_index(drop=True)
