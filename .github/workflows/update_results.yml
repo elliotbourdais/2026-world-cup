@@ -22,4 +22,6 @@ jobs:
       - name: Run script
         env:
           GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
-        run: python results.py
+        run: |
+          python results.py
+          python goalscorers.py
