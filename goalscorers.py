@@ -20,6 +20,61 @@ TEAM_NAME_FIX = {
     "Bosnia & Herzegovina": "Bosnia and Herzegovina",
 }
 
+COUNTRY_CODE = {
+    "Mexico": "mx",
+    "South Korea": "kr",
+    "Canada": "ca",
+    "United States": "us",
+    "Qatar": "qa",
+    "Brazil": "br",
+    "Haiti": "ht",
+    "Australia": "au",
+    "Germany": "de",
+    "Netherlands": "nl",
+    "Ivory Coast": "ci",
+    "Sweden": "se",
+    "Spain": "es",
+    "Belgium": "be",
+    "Saudi Arabia": "sa",
+    "Iran": "ir",
+    "France": "fr",
+    "Iraq": "iq",
+    "Argentina": "ar",
+    "Austria": "at",
+    "Portugal": "pt",
+    "England": "gb-eng",
+    "Ghana": "gh",
+    "Uzbekistan": "uz",
+    "Czech Republic": "cz",
+    "Switzerland": "ch",
+    "Scotland": "gb-sct",
+    "Turkey": "tr",
+    "Ecuador": "ec",
+    "Tunisia": "tn",
+    "Uruguay": "uy",
+    "New Zealand": "nz",
+    "Norway": "no",
+    "Jordan": "jo",
+    "Panama": "pa",
+    "Colombia": "co",
+    "Bosnia and Herzegovina": "ba",
+    "Morocco": "ma",
+    "South Africa": "za",
+    "Curaçao": "cw",
+    "Japan": "jp",
+    "Paraguay": "py",
+    "Senegal": "sn",
+    "Cape Verde": "cv",
+    "Egypt": "eg",
+    "Croatia": "hr",
+    "DR Congo": "cd",
+    "Algeria": "dz",
+}
+
+def flag_url(team):
+    code = COUNTRY_CODE.get(team, "")
+    return f"https://flagcdn.com/40x30/{code}.png" if code else ""
+
 # Fetch data
 url = "https://raw.githubusercontent.com/upbound-web/worldcup-live.json/master/2026/worldcup.json"
 data = requests.get(url).json()
@@ -45,8 +100,8 @@ for player, info in top_scorers:
 sheet = client.open(SHEET_NAME).worksheet(TAB_NAME)
 sheet.clear()
 sheet.update(
-    [['Player', 'Team', 'Goals']] +
-    [[player, info['team'], info['goals']] for player, info in top_scorers]
+    [['Player', 'Team', 'Flag', 'Goals']] +
+    [[player, info['team'], flag_url(info['team']), info['goals']] for player, info in top_scorers]
 )
 
 print("Goalscorers updated successfully")
