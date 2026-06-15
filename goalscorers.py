@@ -73,7 +73,7 @@ COUNTRY_CODE = {
 
 def flag_url(team):
     code = COUNTRY_CODE.get(team, "")
-    return f"https://flagcdn.com/40x30/{code}.png" if code else ""
+    return f"https://flagcdn.com/20x15/{code}.png" if code else ""
 
 # Fetch data
 url = "https://raw.githubusercontent.com/upbound-web/worldcup-live.json/master/2026/worldcup.json"
